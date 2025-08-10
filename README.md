@@ -1,5 +1,3 @@
-# llm-market-analyst
-
 # Market Metrics Analysis & Ticker App
 
 ## 📌 Project Overview

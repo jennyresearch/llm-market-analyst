@@ -142,5 +142,3 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ---
 
-Do you want me to also **add a "Local LLM Prompt Examples" section** in the README so users know exactly what kind of market-related questions they can ask gemma3n? That would make the README more engaging for non-technical users.
-

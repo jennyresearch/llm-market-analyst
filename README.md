@@ -1,8 +1,4 @@
 # llm-market-analyst
-Got it ✅
-Here’s your updated **README.md** with the **Docker section removed** and an emphasis on **local LLM model usage with Ollama + gemma3n**, including installation and download instructions.
-
----
 
 # Market Metrics Analysis & Ticker App
 

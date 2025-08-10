@@ -130,6 +130,11 @@ jupyter notebook market_metrics_EDA.ipynb
 
 ---
 
+## 📈 App Visual
+<img width="717" height="678" alt="image" src="https://github.com/user-attachments/assets/8c9b7575-fb05-4122-adc1-de2b7a523321" />
+
+---
+
 ## 📜 License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file.

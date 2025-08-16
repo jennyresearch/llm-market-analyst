@@ -27,19 +27,19 @@ user_input = st.text_input("Enter Stock Ticker (Capitalized)", "AAPL")
 ticker = user_input
 st.write(f"Current price of {ticker} is {curent_price} {currency} as of {lastest_date}")
 
-# historical chart
-# plotting the historical prices in Candlestick
-import plotly.graph_objects as go
-fig = go.Figure(data=[go.Candlestick(x=price_history['Date'],
-                                     open=price_history[f'Open {ticker}'],
-                                     high=price_history[f'High {ticker}'],
-                                     low=price_history[f'Low {ticker}'],
-                                     close=price_history[f'Close {ticker}'])])
-fig.update_layout(title=f"{ticker} Stock Price History (Candlestick Chart)",
-                  xaxis_title="Date",
-                  yaxis_title=f"Price ({currency})",
-                  xaxis_rangeslider_visible=True)
-st.plotly_chart(fig, use_container_width=True)
+# # historical chart
+# # plotting the historical prices in Candlestick
+# import plotly.graph_objects as go
+# fig = go.Figure(data=[go.Candlestick(x=price_history['Date'],
+#                                      open=price_history[f'Open {ticker}'],
+#                                      high=price_history[f'High {ticker}'],
+#                                      low=price_history[f'Low {ticker}'],
+#                                      close=price_history[f'Close {ticker}'])])
+# fig.update_layout(title=f"{ticker} Stock Price History (Candlestick Chart)",
+#                   xaxis_title="Date",
+#                   yaxis_title=f"Price ({currency})",
+#                   xaxis_rangeslider_visible=True)
+# st.plotly_chart(fig, use_container_width=True)
 
 # LLM model selection
 st.write(f"Stock Analysis: {ticker} Analysis is in process...\

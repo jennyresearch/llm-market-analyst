@@ -1,0 +1,13 @@
+# ignore DS_Store files
+.DS_Store
+
+# ingore Python cache files
+__pycache__/
+*.py[cod]
+
+# ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/ 
+
+# ignore virtual environment directories
+venv/
+.env

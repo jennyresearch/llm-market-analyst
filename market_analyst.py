@@ -143,7 +143,8 @@ def plot_candlestick_chart(price_history, ticker, currency):
                     xaxis_title="Date",
                     yaxis_title=f"Price ({currency})",
                     xaxis_rangeslider_visible=True)
-    fig.show()
+    #fig.show()
+    return fig
 
 
 def plot_SMA(price_history, ticker):
@@ -177,9 +178,12 @@ def plot_SMA(price_history, ticker):
         legend_title="Legend",
         xaxis=dict(rangeslider=dict(visible=True))  # Add range slider for zooming
     )
-
+    # move the legend to the top left corner
+    fig.update_layout(legend=dict(x=0, y=1, traceorder='normal',
+                                orientation='h', bgcolor='rgba(0,0,0,0)', bordercolor='rgba(0,0,0,0)'))
 
     fig.show()  
+    return fig
 
 
 def plot_RSI(price_history, ticker):
@@ -244,7 +248,9 @@ def plot_RSI(price_history, ticker):
     # hover text showing the close price and RSI value
     fig.update_traces(hovertemplate="<b>Date:</b> %{x}<br><b>Close Price:</b> %{y}<br><b>RSI:</b> %{customdata[0]}",
                     customdata=price_history_sorted[['Close ' + ticker, 'RSI_14']].values)
+    
     fig.show()
+    return fig
 
 
 def plot_MACD(price_history, ticker):
@@ -285,4 +291,11 @@ def plot_MACD(price_history, ticker):
     # move the legend to the top left corner
     fig.update_layout(legend=dict(x=0, y=1, traceorder='normal',
                                 orientation='h', bgcolor='rgba(0,0,0,0)', bordercolor='rgba(0,0,0,0)'))
+    
+    # move the legend to the top left corner
+    fig.update_layout(legend=dict(x=0, y=1, traceorder='normal',
+                                orientation='h', bgcolor='rgba(0,0,0,0)', bordercolor='rgba(0,0,0,0)'))
+
     fig.show()  
+
+    return fig

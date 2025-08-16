@@ -9,13 +9,20 @@ import datetime as datetime
 from langchain_community.llms import LlamaCpp
 from langchain.prompts import PromptTemplate
 
+# Set page configuration
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            min-width: 450px;
+            max-width: 450px;
+            width: 450px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-#-----Input date preparation------------#
-## get stock price and historical data
-ticker = "AAPL"
-curent_price, currency = ma.get_stock_price(ticker)
-price_history = ma.historical_prices(ticker)
-lastest_date = price_history.tail(1)["Date"].iloc[0].strftime("%Y-%m-%d")   
 
 #------Contents in the app---------------#
 # sidebar content
@@ -25,10 +32,17 @@ st.sidebar.markdown(ma.indicator_description())
 st.title("📈 Stock Analysis App")
 st.header("Analyze Stock Data with LLMs")
 
-# input ticker 
+
+#-----Input date preparation------------#
+## get stock price and historical data
 user_input = st.text_input("Enter Stock Ticker (Capitalized)", "AAPL") 
 ticker = user_input
-st.write(f"Current price of {ticker} is {curent_price} {currency} as of {lastest_date}")
+curent_price, currency = ma.get_stock_price(ticker)
+price_history = ma.historical_prices(ticker)
+lastest_date = price_history.tail(1)["Date"].iloc[0].strftime("%Y-%m-%d") 
+st.write(f"Current price of {ticker} is {curent_price} {currency} as of {lastest_date}")  
+
+
 
 
 #---------------------#

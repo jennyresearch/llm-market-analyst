@@ -1,4 +1,5 @@
 # Market Metrics Analysis & Ticker App
+Check out app 👉🏻 <https://local-llm-market-analyst-metrics.streamlit.app>
 
 ## 📌 Project Overview
 
@@ -136,7 +137,7 @@ jupyter notebook market_metrics_EDA.ipynb
 Since it requires complex deployment for in Steamlit Community, it only shows the visual
 
 Here is the streamlit deployment for the interactive web app for stock metrics data analysis including: 20 days & 50 days SMA, RSI, and MACD analysis
-👉🏻 [Visit App]([https://github.com](https://local-llm-market-analyst-metrics.streamlit.app))
+👉🏻 <https://local-llm-market-analyst-metrics.streamlit.app>
 
 
 ---

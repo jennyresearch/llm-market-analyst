@@ -4,6 +4,7 @@ import yfinance as yf
 from typing import Tuple
 import pandas as pd
 import datetime as datetime
+import plotly.graph_objects as go
 
 def get_stock_info(ticker: str) -> Tuple[str, str, str]:
     ticker_obj = yf.Ticker(ticker)
@@ -128,3 +129,173 @@ def indicator_description():
     MACD crosses below Signal Line = Bearish signal
     Traders also watch the MACD histogram, which shows the gap between MACD and Signal Line
     """
+
+
+## -----Metric Visual--------##
+def plot_candlestick_chart(price_history, ticker, currency):
+    import plotly.graph_objects as go
+    fig = go.Figure(data=[go.Candlestick(x=price_history['Date'],
+                                        open=price_history[f'Open {ticker}'],
+                                        high=price_history[f'High {ticker}'],
+                                        low=price_history[f'Low {ticker}'],
+                                        close=price_history[f'Close {ticker}'])])
+    fig.update_layout(title=f"{ticker} Stock Price History (Candlestick Chart)",
+                    xaxis_title="Date",
+                    yaxis_title=f"Price ({currency})",
+                    xaxis_rangeslider_visible=True)
+    #fig.show()
+    return fig
+
+
+def plot_SMA(price_history, ticker):
+    # Plotting the 20-day and 50-day Simple Moving Averages (SMA
+    # Show more days by sorting ascending and plotting the full range
+    price_history_sorted = price_history.sort_values(by='Date', ascending=True)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted[f'Close {ticker}'],
+        mode='lines',
+        name=f'Close {ticker}'
+    ))
+    fig.add_trace(go.Scatter(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted['SMA_20'],
+        mode='lines',
+        name='20‑day SMA'
+    ))
+    fig.add_trace(go.Scatter(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted['SMA_50'],
+        mode='lines',
+        name='50‑day SMA'
+    ))
+    fig.update_layout(
+        title=f"{ticker} Price with 20‑day & 50‑day SMAs (Full History)",
+        xaxis_title="Date",
+        yaxis_title="Price (USD)",
+        legend_title="Legend",
+        xaxis=dict(rangeslider=dict(visible=True))  # Add range slider for zooming
+    )
+    # move the legend to the top left corner
+    fig.update_layout(legend=dict(x=0, y=1, traceorder='normal',
+                                orientation='h', bgcolor='rgba(0,0,0,0)', bordercolor='rgba(0,0,0,0)'))
+
+    fig.show()  
+    return fig
+
+
+def plot_RSI(price_history, ticker):
+    # RSI (Relative Strength Index)
+    price_history_sorted = price_history.sort_values(by='Date', ascending=True)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted['RSI_14'],
+        mode='lines',
+        name='RSI 14'
+    ))
+    fig.update_layout(
+        title=f"{ticker} RSI 14 (Full History)",
+        xaxis_title="Date",
+        yaxis_title="RSI",
+        legend_title="Legend",
+        xaxis=dict(rangeslider=dict(visible=True))  # Add range slider for zoomming
+    )
+
+    fig.add_hline(y=30, line_dash="dash", line_color="red", annotation_text="RSI 30", annotation_position="top left")
+    fig.add_hline(y=70, line_dash="dash", line_color="green", annotation_text="RSI 70", annotation_position="top left")
+
+    #shape the area axline=30 and annotation_text it as "Oversold" which show the label "Oversold Area/Buy Zone"    
+    fig.add_shape(type="rect",
+                x0=price_history_sorted['Date'].min(),
+                x1=price_history_sorted['Date'].max(),
+                y0=0,
+                y1=30,
+                fillcolor="red",
+                opacity=0.2,
+                line_width=0,
+                name="Oversold Area/Buy Zone",
+                layer="below")    
+
+    fig.add_shape(type="rect",
+                x0=price_history_sorted['Date'].min(),
+                x1=price_history_sorted['Date'].max(),
+                y0=70,
+                y1=100,
+                fillcolor="green",
+                opacity=0.2,
+                line_width=0,
+                name="Overbought Area/Sell Zone",
+                layer="below")    
+    # add annotation_text for shaded area
+    fig.add_annotation(
+        x=price_history_sorted['Date'].max(),
+        y=15,
+        text="Oversold Area/Buy Zone",
+        showarrow=False,
+        font=dict(color="red")
+    )
+    fig.add_annotation(
+        x=price_history_sorted['Date'].max(),
+        y=85,
+        text="Overbought Area/Sell Zone",
+        showarrow=False,
+        font=dict(color="green")
+    )   
+
+    # hover text showing the close price and RSI value
+    fig.update_traces(hovertemplate="<b>Date:</b> %{x}<br><b>Close Price:</b> %{y}<br><b>RSI:</b> %{customdata[0]}",
+                    customdata=price_history_sorted[['Close ' + ticker, 'RSI_14']].values)
+    
+    fig.show()
+    return fig
+
+
+def plot_MACD(price_history, ticker):
+    # plot the MACD (Moving Average Convergence Divergence)
+    # Show more days by sorting ascending and plotting the full range
+    price_history_sorted = price_history.sort_values(by='Date', ascending=True)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted['MACD'],
+        mode='lines',
+        name='MACD'
+    ))
+    fig.add_trace(go.Scatter(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted['MACD_Signal'],
+        mode='lines',
+        name='MACD Signal'
+    ))
+    fig.add_trace(go.Bar(
+        x=price_history_sorted['Date'],
+        y=price_history_sorted['MACD_Hist'],
+        name='MACD Histogram',
+        marker_color='rgba(0, 0, 255, 0.5)',
+        opacity=0.5
+    ))      
+    fig.update_layout(
+        title=f"{ticker} MACD (Full History)",
+        xaxis_title="Date",
+        yaxis_title="MACD",
+        legend_title="Legend",
+        xaxis=dict(rangeslider=dict(visible=True))  # Add range slider for zoomming
+    )
+    # hover text showing the MACD, MACD Signal, MACD Histogram values and close price 
+    fig.update_traces(hovertemplate="<b>Date:</b> %{x}<br><b>Close Price:</b> %{customdata[0]}<br><b>MACD:</b> %{y}<br><b>MACD Signal:</b> %{customdata[1]}<br><b>MACD Histogram:</b> %{customdata[2]}",
+                    customdata=price_history_sorted[['Close ' + ticker, 'MACD', 'MACD_Signal', 'MACD_Hist']].values)
+    # move the legend to the top left corner
+    fig.update_layout(legend=dict(x=0, y=1, traceorder='normal',
+                                orientation='h', bgcolor='rgba(0,0,0,0)', bordercolor='rgba(0,0,0,0)'))
+    
+    # move the legend to the top left corner
+    fig.update_layout(legend=dict(x=0, y=1, traceorder='normal',
+                                orientation='h', bgcolor='rgba(0,0,0,0)', bordercolor='rgba(0,0,0,0)'))
+
+    fig.show()  
+
+    return fig

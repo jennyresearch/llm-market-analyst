@@ -132,6 +132,11 @@ jupyter notebook market_metrics_EDA.ipynb
 ---
 
 ## 📈 App Visual For LLM
+Below shows the result from **`ticker_app.py`** 
+How to use? 
+- You only need to input the ticker which you can refer to Yahoo finance
+- Ticker analysis would be showed out in around 25 to 20 secons
+
 
 <img src="images/local_LLM_visual.png" alt="Local LLM Visual" width="700"/>
 Since it requires complex deployment for in Steamlit Community, it only shows the visual

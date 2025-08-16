@@ -11,3 +11,7 @@ __pycache__/
 # ignore virtual environment directories
 venv/
 .env
+__pycache__/market_analyst.cpython-313.pyc
+
+# ignore log files
+market_analyst.cpython-313.pyc

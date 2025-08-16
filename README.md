@@ -12,6 +12,7 @@ The project consists of:
 
 * **`market_analyst.py`** → Core data processing and market analysis functions.
 * **`ticker_app.py`** → A Streamlit-powered web interface that uses the **gemma3n local LLM** for insights.
+* **`metrics_app.py`** → Use 20 days & 50 days SMA, RSI, and MACD indicators to show the ticker analysis in the past two years
 * **`market_metrics_EDA.ipynb`** → Jupyter Notebook for exploratory data analysis (EDA) on market metrics.
 * **`requirements.txt`** → Dependency list to replicate the environment.
 

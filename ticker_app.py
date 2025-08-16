@@ -52,5 +52,5 @@ processing_time = end_time - start_time
 st.write(f"Prompt processing time: {processing_time}")
 
 
-# sidebar content
-st.sidebar.markdown(ma.indicator_description())
+# # sidebar content
+# st.sidebar.markdown(ma.indicator_description())

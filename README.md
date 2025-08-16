@@ -1,5 +1,5 @@
 # Market Metrics Analysis & Ticker App
-Check out app 👉🏻 <https://local-llm-market-analyst-metrics.streamlit.app>
+Result from **`metrics_app.py`** 👉🏻 <https://local-llm-market-analyst-metrics.streamlit.app>
 
 ## 📌 Project Overview
 
